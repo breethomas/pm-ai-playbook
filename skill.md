@@ -47,8 +47,8 @@ At the start of any coding session, load the PM AI Playbook:
 ### Bette OS Skill File
 
 ```yaml
-name: pm-ai-playbook
-description: Coding guardrails and quality standards for AI-assisted development
+name: bette-work
+description: Quality gates, session management, and maturity model for AI-assisted work
 trigger:
   - file_edit: "*.{ts,tsx,js,jsx,py,rb,rs,go}"
   - command: "/coding-guardrails"
