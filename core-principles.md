@@ -10,50 +10,50 @@ Where you are today determines what to focus on next.
 
 ### Level 1: Ad Hoc
 
-**What it looks like:** Prompting the AI, accepting output, hoping it works. No consistent process. Quality varies wildly between sessions. Context gets lost between sessions — every restart feels like starting over.
+**What it looks like:** No context. Every session starts cold. You re-explain who you are, what you're working on, and how you like things done. Quality varies wildly because the AI has nothing to build on.
 
 **How to level up:**
+- Create reference files: who you are, what you work on, who your people are
 - Establish a session management practice (see below)
-- Create a project CLAUDE.md or context file with patterns to follow
-- Start committing/saving work in small checkpoints instead of big batches
+- Start saving work in small checkpoints instead of big batches
 
 ### Level 2: Planned
 
-**What it looks like:** Guardrails exist. Session notes capture state. Quality gates define "done." You have a repeatable process for starting and ending sessions.
+**What it looks like:** Reference files exist. The AI starts warm — it knows your role, your team, your priorities. Quality gates define "done." You have a repeatable process for starting and ending sessions.
 
 **How to level up:**
-- Build verification into your workflow (test suites, review checklists, CI checks)
+- Add skills for your repeating workflows (meeting prep, inbox triage, backlog processing)
 - Create reusable patterns from solved problems (see [patterns/](patterns/))
 - Break work into phases with clear dependencies
 
 ### Level 3: Systematic
 
-**What it looks like:** Test suites validate changes before they ship. Solved patterns are captured and reused. Work is broken into phased plans with dependencies mapped. The AI follows established conventions consistently because context files are well-structured.
+**What it looks like:** Skills define quality standards. The system knows your patterns — how you like specs written, how you prep for meetings, what your backlog processing looks like. You invoke workflows by describing what you need; the AI knows what good looks like for your context.
 
 **How to level up:**
-- Have the AI proactively suggest improvements (tests, refactors, pattern violations)
-- Automate session handoffs — AI generates its own continuation notes
 - Build evaluation criteria for AI output quality
+- Let skills get leaner as the model proves it can handle the domain
+- Dogfood your own workflows — use them daily, notice what breaks
 
 ### Level 4: Optimized
 
-**What it looks like:** AI proactively catches pattern violations, suggests test coverage, and manages session continuity. You focus on decisions and direction. The AI handles routine execution within established guardrails. Your context files and patterns are a living system that improves with each session.
+**What it looks like:** Your preferences are so well-captured that you steer and the system drives. It knows you — your communication style, your strategic framework, your quality bar. You focus on decisions and direction. The AI handles routine execution because the context architecture gives it everything it needs.
 
-**The goal isn't to reach Level 4 on day one.** It's to know where you are and what the next step looks like.
+**The goal isn't to reach Level 4 on day one.** It's to know where you are and what the next step looks like. Higher levels mean the system needs less instruction from you, not more process around it.
 
 ---
 
 ## Principles
 
-### 1. Documentation First
+### 1. Context First
 
-Before doing the work, document the plan:
-- **What** you're trying to accomplish
-- **Why** this approach (not an alternative)
+Before doing the work, establish context:
+- **Reference files** — who you are, who your people are, what your domains look like
+- **Preferences** — how you like things done, your quality bar, your communication style
+- **Goals and priorities** — what matters right now, what you're working toward
 - **Patterns to follow** — link to similar past work
-- **How you'll know it's done**
 
-Markdown files > trying to explain everything in chat. Written plans survive session restarts. Chat history doesn't.
+Context files > trying to explain everything in chat. Reference files survive session restarts. Chat history doesn't. The AI doesn't need step-by-step instructions — it needs to understand your world.
 
 ### 2. Plan Big Work in Phases
 
@@ -83,16 +83,18 @@ Save after every meaningful unit of progress, not just when "done."
 
 **Why:** You always have a last known good state to return to. If something goes wrong, you revert one small change instead of losing hours of work.
 
-### 4. Quality > Speed
+### 4. Quality Gates Protect; Perfectionism Blocks
 
-Shipping fast is good. Shipping sloppy work is not.
+Shipping fast is good. Shipping sloppy work is not. But polishing forever is worse.
+
+Quality gates catch catastrophic failure — broken builds, wrong data, embarrassing errors. They should be fast, focused checks, not comprehensive reviews that block iteration.
 
 Before publishing, sending, or merging, ask:
 - **Is this creating more work than it saves?**
 - **Will this be easy to maintain or build on?**
 - **Did I follow established patterns or force my own?**
 
-If the answer to any is "no" — refactor before shipping.
+If the answer to any is "no" — fix the critical issue and ship. Don't let perfect be the enemy of done.
 
 ### 5. Know When to Ask
 
@@ -151,19 +153,36 @@ This applies to code, docs, processes, and templates:
 - "I'll create a helper to..."
 - Adding a new process when an existing one covers the case
 
+### 10. Revisit with New Models
+
+AI models improve fast. Step-by-step instructions that were necessary six months ago may be unnecessary today.
+
+When a new model ships, check your skills:
+- Can any procedural steps be removed because the model handles them natively?
+- Are you compensating for limitations that no longer exist?
+- Can a skill be expressed as "here's what good looks like" instead of "here's how to do it"?
+
+Skills should get leaner over time, not fatter. The goal is to encode your judgment and preferences — not to write a manual for the AI.
+
 ---
 
 ## Session Management
 
-Context rot is real. AI assistants lose coherence over long sessions. Managing sessions is as important as managing the work itself.
+Context rot is real. Auto-compaction fires at ~167,000 tokens, compressing everything into a lossy summary. The AI doesn't know it happened. Managing sessions is as important as managing the work itself.
 
 ### When to Restart
 
-**After 2-3 major tasks, or when you notice:**
+The trigger depends on the type of work:
+
+**Coding sessions** -- restart after 2-3 major tasks. Coding sessions tend to be focused on a small number of files, so context pressure builds slowly.
+
+**Strategic/research/writing sessions** -- restart after reading 10+ diverse sources or after 60+ minutes of deep work. These sessions read more files per task (transcripts, reference docs, prior drafts, Notion pages, Slack threads) and hit compaction faster than coding sessions with fewer completed "tasks."
+
+**Any session** -- restart when you notice:
 - AI suggesting approaches different from what you established
 - Having to re-explain things covered earlier
-- Output quality declining
-- More errors or back-and-forth
+- AI "forgetting" files it read recently (a sign compaction fired)
+- Output quality dropping suddenly rather than gradually
 
 ### Before Restarting: Capture State
 
