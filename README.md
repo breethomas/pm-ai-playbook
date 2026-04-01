@@ -15,7 +15,7 @@ Quality gates, session management, and working principles for AI-assisted work.
 
 ## What's Here
 
-- **[core-principles.md](core-principles.md)** — Universal principles and the maturity model (ad hoc → planned → systematic → optimized)
+- **[core-principles.md](core-principles.md)** — Universal principles, the maturity model, and session management (compaction awareness, work-type restart heuristics)
 - **[coding/quality-gates.md](coding/quality-gates.md)** — Pre-commit checklist for PMs who code
 - **[coding/test-first.md](coding/test-first.md)** — AI-generated test suites as safety nets
 - **[coding/solo-projects.md](coding/solo-projects.md)** — Standards for solo projects
